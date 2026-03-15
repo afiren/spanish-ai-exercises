@@ -1,101 +1,49 @@
 # 🇪🇸 Spanish AI Exercise Maker
 
-> AI-powered fill-in-the-blank Spanish exercises that run entirely on your machine.
+AI-powered fill-in-the-blank Spanish exercises. You give it the words you want to practise, it generates exercises and grades your answers — all running locally with [Ollama](https://ollama.com).
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
-![Ollama](https://img.shields.io/badge/Ollama-local-green?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square)
+## Features (v0.1)
 
-Type the Spanish words you want to practise, get an AI-generated exercise, submit your answer, and receive instant feedback — no API keys, no internet connection required after setup.
+- Enter any Spanish vocabulary words
+- AI generates a fill-in-the-blank sentence using one of your words
+- Type your answer and get instant AI feedback
+- Fully local — no API keys, no data sent to the cloud
 
-![Alt text](images/image.png)
+## Stack
 
+- **Next.js 14** — frontend + API routes in one
+- **Ollama** — runs the LLM locally (default: `llama3`)
+- **TypeScript**
 
-## Features
+## Quick start
 
-- 📝 Fill-in-the-blank exercises generated from your own vocabulary list
-- 🤖 Self-reviewing AI — the model checks its own output before showing it to you
-- ✅ Instant answer grading with grammar tips
-- 🔒 Fully local — powered by [Ollama](https://ollama.com), nothing leaves your machine
-- ⚡ Single command setup
+### 1. Install and start Ollama
 
-## Demo
-```
-Words:  hablar, comer, dormir, vivir
-
-Exercise:  "Ella suele ____ fruta por la mañana."
-Your answer: comer
-Result: ✅ Correct! Great job.
-```
-
-## Getting started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org) 18+
-- [Ollama](https://ollama.com) installed and running
-
-### 1. Pull a model
 ```bash
+# Install from https://ollama.com, then:
 ollama pull llama3
 ```
 
-Any model works. Other good options: `mistral`, `phi3`, `gemma2`.
-
 ### 2. Clone and install
+
 ```bash
-git clone https://github.com/afiren/spanish-ai-exercises
+git clone https://github.com/your-username/spanish-ai-exercises
 cd spanish-ai-exercises
 npm install
 ```
 
 ### 3. Configure environment
+
 ```bash
 cp .env.example .env.local
-```
-
-Edit `.env.local` if you want a different model or Ollama URL:
-```env
-OLLAMA_URL=http://localhost:11434
-OLLAMA_MODEL=llama3
+# Edit .env.local if you want a different model or Ollama URL
 ```
 
 ### 4. Run
+
 ```bash
 npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-## How it works
-```
-You enter words
-      ↓
-POST /api/generate
-      ↓
-Ollama generates a fill-in-the-blank sentence
-      ↓
-Second Ollama pass reviews grammar and blank placement
-      ↓
-You answer in the UI
-      ↓
-POST /api/check
-      ↓
-Ollama grades your answer with an explanation
-```
-
-## Project structure
-```
-app/
-  page.tsx                 # Full UI — input → exercise → result
-  layout.tsx               # Root layout
-  globals.css              # Design tokens
-  api/
-    generate/route.ts      # Generates exercises with self-review
-    check/route.ts         # Grades answers
-lib/
-  ollama.ts                # Ollama client + all prompt templates
+# Open http://localhost:3000
 ```
 
 ## Configuration
@@ -103,23 +51,35 @@ lib/
 | Variable | Default | Description |
 |---|---|---|
 | `OLLAMA_URL` | `http://localhost:11434` | Ollama server URL |
-| `OLLAMA_MODEL` | `llama3` | Any model you have pulled locally |
+| `OLLAMA_MODEL` | `llama3` | Any model you have pulled |
+
+Other models that work well: `mistral`, `phi3`, `gemma2`.
+
+## Project structure
+
+```
+app/
+  page.tsx              # Main UI (all phases: input → exercise → result)
+  layout.tsx            # Root layout + fonts
+  globals.css           # Design tokens
+  api/
+    generate/route.ts   # POST /api/generate — creates an exercise
+    check/route.ts      # POST /api/check    — grades the answer
+lib/
+  ollama.ts             # Ollama client + prompt templates
+```
 
 ## Roadmap
 
-- [x] v0.1 — Fill-in-the-blank, Ollama, self-reviewing prompt
-- [ ] v0.2 — Multiple exercise types (translation, multiple choice, sentence builder)
-- [ ] v0.3 — Session progress and score tracking
-- [ ] v1.0 — Shareable exercise sets via URL
+- [x] v0.1 — Fill-in-the-blank, Ollama, single page
+- [ ] v0.2 — Multiple exercise types (translation, sentence builder, multiple choice)
+- [ ] v0.3 — Session progress tracking
+- [ ] v1.0 — Shareable exercise sets, mobile polish
 
 ## Contributing
 
-Pull requests are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to add a new exercise type or LLM provider.
+Pull requests welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-## Author
+## Licence
 
-Made by [@afiren](https://github.com/afiren)
-
-## License
-
-[MIT](./LICENSE)
+MIT
