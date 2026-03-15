@@ -9,7 +9,7 @@
 
 Type the Spanish words you want to practise, get an AI-generated exercise, submit your answer, and receive instant feedback — no API keys, no internet connection required after setup.
 
-
+![Alt text](images/image.png)
 
 
 ## Features
